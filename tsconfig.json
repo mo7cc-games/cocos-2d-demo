@@ -5,7 +5,9 @@
   /* Add your custom configuration here. */
   "compilerOptions": {
     "strict": false,
-    "target": "es2016",
+    "target": "es2017",
+    "module": "ESNext",
+    "allowJs": true,
     "moduleResolution": "Bundler"
   }
 }
