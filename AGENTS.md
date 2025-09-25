@@ -14,8 +14,13 @@
 ## 常用命令
 
 ```bash
-
 # 安装依赖
 bun install
 
 ```
+
+## 开发方式
+
+TypeScript 代码由 Github Copilot 直接生成。
+
+需要操作 Cocos Creator 编辑器的部分由 Copilot 生成详细的操作步骤与说明，然后由开发者手动完成。
