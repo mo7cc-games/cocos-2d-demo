@@ -2,7 +2,7 @@
 
 ## 项目简介
 
-这是一个基于 Cocos Creator 3.8 的 2D 游戏项目 Demo，展示了如何使用 Cocos Creator 进行游戏开发。
+这是一个基于 Cocos Creator 3.8 的 2D 游戏项目
 
 ## 开发规范
 
