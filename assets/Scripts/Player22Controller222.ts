@@ -6,13 +6,17 @@ import {
   Input,
   Vec3,
   EventMouse,
+  Animation,
 } from 'cc';
 const { ccclass, property } = _decorator;
 
 export const BLOCK_SIZE = 40; // 添加一个放大比
 
 @ccclass('PlayerController')
-export class PlayerController extends Component {
+export class Player22Controller222 extends Component {
+  @property(Animation)
+  BodyAnim: Animation = null;
+
   private _startJump: boolean = false; // 是否开始跳跃,是否在跳跃状态
   private _jumpStep: number = 0; // 跳跃步数,用于记录鼠标的输入
   private _curJumpTime: number = 0; // 当前跳跃时间,个数值类型的变量用于记录整个跳跃的时长
@@ -46,6 +50,14 @@ export class PlayerController extends Component {
       this._curPos,
       new Vec3(this._jumpStep * BLOCK_SIZE, 0, 0),
     ); // 计算出目标位置，当前位置 + 跳跃步数  this._targetPos 为结果赋值
+
+    if (this.BodyAnim) {
+      if (step === 1) {
+        this.BodyAnim.play('oneStep');
+      } else if (step === 2) {
+        this.BodyAnim.play('twoStep');
+      }
+    }
   }
 
   update(deltaTime: number) {
