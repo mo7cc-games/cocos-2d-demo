@@ -40,16 +40,23 @@ export class Player22Controller222 extends Component {
   }
 
   jumpByStep(step: number) {
+    if (this._startJump) {
+      return;
+    } // 如果正在跳跃中，忽略新的跳跃请求
+
     this._startJump = true; // 标记开始跳跃
     this._jumpStep = step; // 跳跃的步数 1 或者 2
     this._curJumpTime = 0; // 重置开始跳跃的时间
-    this._curJumpSpeed = this._jumpStep / this._jumpTime; // 根据时间计算出速度
+
+    const clipName = step == 1 ? 'oneStep' : 'twoStep'; // 根据步数选择动画
+    const state = this.BodyAnim.getState(clipName); // 获取动画状态
+    this._jumpTime = state.duration; // 用动画的时长作为跳跃的时长
+
+    const jumpStep = this._jumpStep * BLOCK_SIZE; // 跳跃的步数
+
+    this._curJumpSpeed = jumpStep / this._jumpTime; // 根据时间计算出速度
     this.node.getPosition(this._curPos); // 获取角色当前的位置  就结果赋值给 this._curPos 变量，通过参数传递可以避免频繁创建变量
-    Vec3.add(
-      this._targetPos,
-      this._curPos,
-      new Vec3(this._jumpStep * BLOCK_SIZE, 0, 0),
-    ); // 计算出目标位置，当前位置 + 跳跃步数  this._targetPos 为结果赋值
+    Vec3.add(this._targetPos, this._curPos, new Vec3(jumpStep, 0, 0)); // 计算出目标位置，当前位置 + 跳跃步数  this._targetPos 为结果赋值
 
     if (this.BodyAnim) {
       if (step === 1) {

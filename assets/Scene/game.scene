@@ -389,6 +389,10 @@
       {
         "__uuid__": "987bc8d0-adbc-4051-a057-f9d2509aaad9",
         "__expectedType__": "cc.AnimationClip"
+      },
+      {
+        "__uuid__": "32d56591-b03a-4c55-9eaa-2329e3cf6d30",
+        "__expectedType__": "cc.AnimationClip"
       }
     ],
     "_defaultClip": null,
@@ -429,7 +433,7 @@
     "BodyAnim": {
       "__id__": 9
     },
-    "_id": "249AYccV5MGYoF8T2g1ipJ"
+    "_id": "b4LhbPDhxPW4dZTTphJlYx"
   },
   {
     "__type__": "cc.Node",
