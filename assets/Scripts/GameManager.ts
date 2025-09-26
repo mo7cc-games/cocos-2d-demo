@@ -6,7 +6,7 @@ import {
   instantiate,
   Node,
 } from 'cc';
-import { BLOCK_SIZE, Player22Controller222 } from './Player22Controller222';
+import { BLOCK_SIZE } from './Player22Controller222';
 
 const { ccclass, property } = _decorator;
 
