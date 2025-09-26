@@ -15,7 +15,7 @@ export const BLOCK_SIZE = 40; // 添加一个放大比
 @ccclass('PlayerController')
 export class Player22Controller222 extends Component {
   @property(Animation)
-  BodyAnim: Animation = null;
+  public BodyAnim: Animation = null;
 
   private _startJump: boolean = false; // 是否开始跳跃,是否在跳跃状态
   private _jumpStep: number = 0; // 跳跃步数,用于记录鼠标的输入
@@ -25,6 +25,7 @@ export class Player22Controller222 extends Component {
   private _curPos: Vec3 = new Vec3(); // 当前坐标，记录和计算角色的当前位置
   private _deltaPos: Vec3 = new Vec3(0, 0, 0); // 位移 结果
   private _targetPos: Vec3 = new Vec3(); // 目标位置，最终落脚点
+  private _curMoveIndex: number = 0;
 
   start() {
     // input.on(Input.EventType.MOUSE_UP, this.onMouseUp, this);
@@ -46,7 +47,15 @@ export class Player22Controller222 extends Component {
       input.off(Input.EventType.MOUSE_UP, this.onMouseUp, this);
     }
   }
-  reset() {}
+  reset() {
+    this._curMoveIndex = 0;
+    this.node.getPosition(this._curPos);
+    this._targetPos.set(0, 0, 0);
+  }
+
+  onOnceJumpEnd() {
+    this.node.emit('JumpEnd', this._curMoveIndex); // this._curMoveIndex 为参数
+  }
 
   jumpByStep(step: number) {
     if (this._startJump) {
@@ -74,22 +83,23 @@ export class Player22Controller222 extends Component {
         this.BodyAnim.play('twoStep');
       }
     }
+    this._curMoveIndex += step;
   }
 
   update(deltaTime: number) {
     if (this._startJump) {
-      // 如果在跳跃状态
-      this._curJumpTime += deltaTime; // 累计总的跳跃时间
+      this._curJumpTime += deltaTime;
       if (this._curJumpTime > this._jumpTime) {
-        // 当跳跃时间是否结束
-        this.node.setPosition(this._targetPos); // 强制位置到终点
-        this._startJump = false; // 清理跳跃标记
+        // end
+        this.node.setPosition(this._targetPos);
+        this._startJump = false;
+        this.onOnceJumpEnd();
       } else {
         // tween
         this.node.getPosition(this._curPos);
-        this._deltaPos.x = this._curJumpSpeed * deltaTime; //每一帧根据速度和时间计算位移
-        Vec3.add(this._curPos, this._curPos, this._deltaPos); // 应用这个位移
-        this.node.setPosition(this._curPos); // 将位移设置给角色
+        this._deltaPos.x = this._curJumpSpeed * deltaTime;
+        Vec3.add(this._curPos, this._curPos, this._deltaPos);
+        this.node.setPosition(this._curPos);
       }
     }
   }
