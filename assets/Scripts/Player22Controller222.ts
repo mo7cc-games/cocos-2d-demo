@@ -27,7 +27,7 @@ export class Player22Controller222 extends Component {
   private _targetPos: Vec3 = new Vec3(); // 目标位置，最终落脚点
 
   start() {
-    input.on(Input.EventType.MOUSE_UP, this.onMouseUp, this);
+    // input.on(Input.EventType.MOUSE_UP, this.onMouseUp, this);
   }
   onMouseUp(event: EventMouse) {
     if (event.getButton() === 0) {
@@ -38,6 +38,15 @@ export class Player22Controller222 extends Component {
       this.jumpByStep(2);
     }
   }
+
+  setInputActive(active: boolean) {
+    if (active) {
+      input.on(Input.EventType.MOUSE_UP, this.onMouseUp, this);
+    } else {
+      input.off(Input.EventType.MOUSE_UP, this.onMouseUp, this);
+    }
+  }
+  reset() {}
 
   jumpByStep(step: number) {
     if (this._startJump) {
