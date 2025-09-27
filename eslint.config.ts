@@ -5,7 +5,7 @@ import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
   {
-    ignores: ['node_modules/', 'dist/', '.obsidian/'],
+    ignores: ['node_modules/', 'dist/'],
   },
   // 先加载推荐配置
   tseslint.configs.recommended,
